@@ -21,6 +21,7 @@ public class Tictactoe {
                 //Boolean wygranaSkos2= sprawdzSkos2(plansza,obecnySymbol);
                 if (wygranaWiersze || wygranaKolumny || wygranaSkos1) {
                     System.out.println("gratulacje wygrałes" + obecnySymbol);
+                    czyKontynuować = false;
                 }
             }
             if (obecnySymbol == 'X') {
