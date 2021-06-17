@@ -1,0 +1,115 @@
+import java.util.Scanner;
+
+public class Tictactoe {
+    public static void main(String[] args) {
+        System.out.println("podaj rozmiar planszy");
+        int wymiar = new Scanner(System.in).nextInt();
+
+        char obecnySymbol = 'X';
+        char[][] plansza = new char[wymiar][wymiar];
+
+        boolean czyKontynuować = true;
+        int licznikRuchow=0;
+        while (czyKontynuować && licznikRuchow<=wymiar*wymiar){
+            Tictactoe.drukujPlansze(plansza);
+            boolean poprawnyRuch = wykonajRuch(plansza, obecnySymbol);
+            if (poprawnyRuch) {
+                licznikRuchow ++;
+                Boolean wygranaWiersze = sprawdzWiersze(plansza, obecnySymbol);
+                Boolean wygranaKolumny = sprawdzKolumny(plansza, obecnySymbol);
+                Boolean wygranaSkos1 = sprawdzSkos1(plansza, obecnySymbol);
+                //Boolean wygranaSkos2= sprawdzSkos2(plansza,obecnySymbol);
+                if (wygranaWiersze || wygranaKolumny || wygranaSkos1) {
+                    System.out.println("gratulacje wygrałes" + obecnySymbol);
+                }
+            }
+            if (obecnySymbol == 'X') {
+                obecnySymbol = 'O';
+            } else {
+                obecnySymbol = 'X';
+
+            }
+        }
+    }
+    public static boolean sprawdzSkos1 (char[][] plansza, char symbol){
+        int wymiar = plansza.length;
+        for( int i = 0; i < wymiar; i++) {
+            if ( plansza[i][i] != symbol ) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean sprawdzKolumny(char[][]plansza, char symbol) {
+        int wymiar = plansza.length;
+        ;
+        for (int kolumna = 0; kolumna < wymiar; kolumna++) {
+            boolean wygrana = true;
+            for (int wiersz = 0; wiersz < wymiar; wiersz++) {
+                if (plansza[wiersz][kolumna] != symbol) {
+                    wygrana = false;
+                    break;
+                }
+            }
+            if (wygrana) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean sprawdzWiersze(char[][] plansza, char symbol) {
+        int wymiar = plansza.length;
+        for (int wiersz = 0; wiersz < wymiar; wiersz++) {
+            boolean wygrana = true;
+            for (int kolumna = 0; kolumna < wymiar; kolumna++) {
+                if (plansza[wiersz][kolumna] != symbol) {
+                    wygrana = false;
+                    break;
+                }
+            }
+            if (wygrana) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean wykonajRuch(char[][] plansza, char obecnySymbol) {
+        System.out.println(obecnySymbol + " twój ruch");
+        System.out.println("podaj numer wiersza");
+        int wiersz = new Scanner(System.in).nextInt();
+        System.out.println("podaj numer kolumny");
+        int kolumna = new Scanner(System.in).nextInt();
+        boolean poprawnyRuch = plansza[wiersz][kolumna] == 0;
+        if (!poprawnyRuch) {
+            System.out.println("WYBIERZ INNE POLE, TO JEST JUŻ ZAJĘTE");
+            return false;
+
+        }
+        plansza[wiersz][kolumna] = obecnySymbol;
+        return true;
+    }
+
+    public static void drukujPlansze(char[][] plansza) {
+        int wymiar = plansza.length;
+        System.out.print("\t");
+
+        //pętla drukująca nagłówki kolumn
+        for (int i = 0; i < wymiar; i++) {
+            System.out.print(i + "\t");
+        }
+        System.out.println();
+
+
+        for (int wiersz = 0; wiersz < plansza.length; wiersz++) {
+            System.out.print(wiersz + ":\t");
+            for (int kolumna = 0; kolumna < plansza[wiersz].length; kolumna++) {
+                System.out.print(plansza[wiersz][kolumna] + " \t");
+            }
+            System.out.println();
+        }
+
+    }
+}
+
