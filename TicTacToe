@@ -18,8 +18,8 @@ public class Tictactoe {
                 Boolean wygranaWiersze = sprawdzWiersze(plansza, obecnySymbol);
                 Boolean wygranaKolumny = sprawdzKolumny(plansza, obecnySymbol);
                 Boolean wygranaSkos1 = sprawdzSkos1(plansza, obecnySymbol);
-                //Boolean wygranaSkos2= sprawdzSkos2(plansza,obecnySymbol);
-                if (wygranaWiersze || wygranaKolumny || wygranaSkos1) {
+                Boolean wygranaSkos2 = sprawdzSkos2(plansza,obecnySymbol);
+                if (wygranaWiersze || wygranaKolumny || wygranaSkos1 || wygranaSkos2) {
                     System.out.println("gratulacje wygrałes" + obecnySymbol);
                     czyKontynuować = false;
                 }
@@ -41,6 +41,26 @@ public class Tictactoe {
         }
         return true;
     }
+    public static boolean sprawdzSkos2 (char[][] plansza, char symbol){
+        int wymiar = plansza.length;
+        boolean wygrana=false;
+        for( int wiersz = wymiar-1; wiersz >= 0; wiersz--) {
+            for (int kolumna =0; kolumna< wymiar; kolumna++ ) {
+                wygrana = true;
+                if (plansza[wiersz][kolumna] != symbol) {
+                    wygrana = false;
+                    }
+                }
+            }
+        if (wygrana) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static boolean sprawdzKolumny(char[][]plansza, char symbol) {
         int wymiar = plansza.length;
         ;
