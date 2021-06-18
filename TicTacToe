@@ -32,6 +32,7 @@ public class Tictactoe {
             }
         }
     }
+
     public static boolean sprawdzSkos1 (char[][] plansza, char symbol){
         int wymiar = plansza.length;
         for( int i = 0; i < wymiar; i++) {
@@ -97,16 +98,31 @@ public class Tictactoe {
     }
 
     public static boolean wykonajRuch(char[][] plansza, char obecnySymbol) {
+        int wymiar = plansza.length;
         System.out.println(obecnySymbol + " twój ruch");
         System.out.println("podaj numer wiersza");
         int wiersz = new Scanner(System.in).nextInt();
+        if (wiersz>=wymiar){
+            System.out.println("index wiersza za duży, podaj inny");
+        }
+        else {
+
+
+        }
         System.out.println("podaj numer kolumny");
         int kolumna = new Scanner(System.in).nextInt();
+        boolean zlyindex = false;
+        if (kolumna>=wymiar){
+            System.out.println("index kolumny za duży, podaj inny");
+            new Tictactoe();
+        }
+        else {
+
+        }
         boolean poprawnyRuch = plansza[wiersz][kolumna] == 0;
         if (!poprawnyRuch) {
             System.out.println("WYBIERZ INNE POLE, TO JEST JUŻ ZAJĘTE");
             return false;
-
         }
         plansza[wiersz][kolumna] = obecnySymbol;
         return true;
