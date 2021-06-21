@@ -1,9 +1,24 @@
+import java.io.InputStream;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.lang.*;
+import java.io.*;
 
 public class Tictactoe {
     public static void main(String[] args) {
-        System.out.println("podaj rozmiar planszy");
-        int wymiar = new Scanner(System.in).nextInt();
+        int wymiar = 0;
+        while (true) {
+            try {
+                System.out.println("podaj rozmiar planszy");
+                wymiar = new Scanner(System.in).nextInt();
+                break;
+
+
+            } catch (InputMismatchException e) {
+                System.out.println("Podany znak nie jest liczbą");
+                continue;
+            }
+        }
 
         char obecnySymbol = 'X';
         char[][] plansza = new char[wymiar][wymiar];
@@ -50,9 +65,9 @@ public class Tictactoe {
                 wygrana = true;
                 if (plansza[wiersz][kolumna] != symbol) {
                     wygrana = false;
-                    }
                 }
             }
+        }
         if (wygrana) {
             return true;
         }
@@ -64,7 +79,6 @@ public class Tictactoe {
 
     public static boolean sprawdzKolumny(char[][]plansza, char symbol) {
         int wymiar = plansza.length;
-        ;
         for (int kolumna = 0; kolumna < wymiar; kolumna++) {
             boolean wygrana = true;
             for (int wiersz = 0; wiersz < wymiar; wiersz++) {
@@ -100,24 +114,46 @@ public class Tictactoe {
     public static boolean wykonajRuch(char[][] plansza, char obecnySymbol) {
         int wymiar = plansza.length;
         System.out.println(obecnySymbol + " twój ruch");
-        System.out.println("podaj numer wiersza");
-        int wiersz = new Scanner(System.in).nextInt();
-        if (wiersz>=wymiar){
-            System.out.println("index wiersza za duży, podaj inny");
-        }
-        else {
+        int wiersz=0;
 
+        while(true) {
+            try {
+                System.out.println("podaj numer wiersza");
+                wiersz = new Scanner(System.in).nextInt();
+                if (wiersz>=wymiar){
+                    throw new ArithmeticException();
+                }
+                break;
 
+            }
+            catch (InputMismatchException e) {
+                System.out.println("podany ZNAK NIE JEST LICZBĄ");
+                continue;
+            }
+            catch (ArithmeticException e){
+                System.out.println("index wiersza za duży, podaj inny");
+                continue;
+            }
         }
-        System.out.println("podaj numer kolumny");
-        int kolumna = new Scanner(System.in).nextInt();
-        boolean zlyindex = false;
-        if (kolumna>=wymiar){
-            System.out.println("index kolumny za duży, podaj inny");
-            new Tictactoe();
-        }
-        else {
 
+        int kolumna =0;
+        while(true) {
+            try {
+                System.out.println("podaj numer kolumny");
+                kolumna = new Scanner(System.in).nextInt();
+                if (kolumna>=wymiar){
+                    throw new ArithmeticException();
+                }
+                break;
+
+            } catch (InputMismatchException e) {
+                System.out.println("podany ZNAK NIE JEST LICZBĄ");
+                continue;
+            }
+            catch (ArithmeticException e){
+                System.out.println("index kolumny za duży, podaj inny");
+                continue;
+            }
         }
         boolean poprawnyRuch = plansza[wiersz][kolumna] == 0;
         if (!poprawnyRuch) {
@@ -149,4 +185,3 @@ public class Tictactoe {
 
     }
 }
-
